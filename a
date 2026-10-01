@@ -1,0 +1,96 @@
+start implemnting: # 🏆 MCCIA Awards Website — Improvement Roadmap
+
+## ✅ Just Fixed
+- Awards grid now shows **3 cards per row** on desktop, 2 on tablet, 1 on mobile.
+
+---
+
+## 🔥 High-Impact Improvements
+
+### 1. Award Detail Page Redesign
+> The individual award page (`/awards/:id`) could be heavily upgraded.
+- Replace the current plain layout with a **full-width hero band** in the award's accent color
+- Add an **eligibility checklist** (✓ items from the `highlights` array) in a clean two-column layout
+- Add a sticky **"Nominate for this Award →"** CTA bar that follows the user as they scroll
+- Show related awards at the bottom ("You might also qualify for…")
+
+### 2. Statistics / Impact Section (Homepage)
+> Show the scale and legacy of MCCIA Awards with animated counters.
+- `400+` Entrepreneurs Recognised
+- `9` Award Categories
+- `75+` Years of Legacy  
+- `3` Selection Stages
+
+This would go between the Overview and Process sections and would be very compelling for first-time visitors.
+
+### 3. Past Winners Showcase (You have logos!)
+> Replace the current scrolling placeholder images with a proper section.
+- **Card-based grid** with company name, award won, and year
+- Optionally group by category using tabs or filters
+- Add a "Featured Winner" spotlight card for the most recent ceremony
+
+### 4. Jury / Selection Committee Section
+> Currently missing. Trust is critical for awards.
+- Add a section featuring 3–5 jury member names with their designations
+- A quote from the chairperson would be very powerful
+- This instantly builds credibility with applicants
+
+### 5. Application Guide / Checklist Page
+> A common concern: "Am I ready to apply?"
+- A visual **step-by-step checklist** of what to prepare
+- Downloadable PDF of the application form (if available)
+- Clear eligibility summary table across all 9 awards side by side
+
+---
+
+## 🎨 UI & Visual Polish
+
+### 6. Hero Section
+- The current hero has a text block + countdown card. Consider adding a **short, looping video background** (15s reel of past award ceremonies) instead of the plain gradient
+- Alternatively, add a **3D trophy illustration** (animated with CSS) instead of the static seal SVG
+
+### 7. Color Accent System
+- Each of the 9 awards already has a unique `tagColor`. Use these colors more boldly throughout — for example, the award detail page hero background could use that award's color at 10% opacity
+
+### 8. Dark Mode
+> A premium dark mode with deep navy (#0a1424) backgrounds would look stunning for this brand.
+- Toggle in the header
+- MCCIA Blue glows beautifully on dark backgrounds
+
+### 9. Micro-animation: Countdown Flip Effect
+> The countdown timer on the hero card could use a **flip animation** for each digit change
+- Each digit (days, hours, mins, secs) animates with a card-flip effect when it changes
+- Very common on premium event sites and adds a dramatic urgency feel
+
+### 10. Footer Enhancement
+- Add a **newsletter / update subscription** input ("Get notified when nominations open")
+- Add social media icons (LinkedIn, Twitter/X, YouTube) for MCCIA
+- Embed a tiny **Google Maps snippet** or address card
+
+---
+
+## 📱 Mobile UX
+
+### 11. Mobile Sticky CTA Bar
+- On mobile, a fixed bottom bar with **"Nominate Now →"** would significantly improve conversion
+- Hide it on desktop (which already has the header button)
+
+### 12. Swipeable Award Cards (Mobile)
+- On mobile, convert the award grid into a **horizontal carousel** users can swipe through
+- Show 1.2 cards to hint at swiping (peekaboo effect)
+
+---
+
+## 🚀 What to Build Next (Priority Order)
+| # | Feature | Impact | Effort |
+|---|---------|--------|--------|
+| 1 | Statistics / Impact counters section | ⭐⭐⭐ High | Low |
+| 2 | Award Detail Page redesign | ⭐⭐⭐ High | Medium |
+| 3 | Jury / Selection Committee section | ⭐⭐ Medium | Low |
+| 4 | Mobile sticky CTA bar | ⭐⭐ Medium | Low |
+| 5 | Past Winners grid with logos | ⭐⭐⭐ High | Low (you have logos!) |
+| 6 | Countdown flip animation | ⭐ Nice-to-have | Medium |
+| 7 | Dark Mode | ⭐⭐ Medium | High |
+
+---
+> Just tell me which one(s) you'd like to build and I'll implement them right away!

@@ -1,0 +1,285 @@
+export const awardsData = [
+  {
+    id: 'gs-parkhe',
+    title: 'G. S. Parkhe Award',
+    tag: 'Innovation',
+    tagColor: '#0c7b72',
+    since: 'Since 1947',
+    icon: 'lightbulb',
+    image: '/assets/img/awards/gs-parkhe.jpg',
+    imageAlt: 'Portrait of G. S. Parkhe',
+    description:
+      'Instituted by Mr. Baburaoji Parkhe in memory of his younger brother, G. S. Parkhe, this is India\'s oldest industrial award. Presented since 1947, it recognises innovative products, processes, designs, services and import-substitute solutions demonstrating market relevance and acceptance.',
+    highlights: [
+      'First presented in 1947',
+      'Oldest Industrial Award in India',
+      '400+ entrepreneurs recognised by this award',
+      'Follows a stringent selection process',
+      'Recognises innovations with market acceptance and industrial relevance',
+    ],
+    eligibilitySummary: 'Innovative products, processes, designs or services with market acceptance.',
+    eligibility:
+      'Open to innovative products, processes, designs, services and import-substitute solutions that demonstrate entrepreneurial potential and encourage innovation.',
+    prize: 'Trophy & Certificate',
+    category: 'innovation',
+  },
+  {
+    id: 'ramabai-joshi',
+    title: 'Late Ramabai Joshi Award',
+    tag: 'Women Entrepreneurs',
+    tagColor: '#ad8c46',
+    since: 'Since 1974',
+    icon: 'person',
+    image: '/assets/img/awards/ramabai-joshi.jpg',
+    imageAlt: 'Portrait of Ramabai Joshi',
+    description:
+      'Instituted in 1974 in memory of Ramabai Joshi, this award encourages and recognises women entrepreneurs driving innovation. It recognises women who develop innovative products, appliances and solutions for domestic applications, with a focus on sustainability and practical impact.',
+    highlights: [
+      'Instituted in 1974',
+      'Recognises women entrepreneurs and innovators',
+      'Focuses on innovative products, appliances and domestic solutions',
+      'Encourages sustainable technologies and innovation',
+      'Promotes and motivates women-led entrepreneurship',
+    ],
+    eligibility:
+      'Open to women entrepreneurs who develop or innovate products, appliances and solutions for domestic applications, including sustainable technologies.',
+    eligibilitySummary: 'Women entrepreneurs developing innovative domestic-use products or sustainable solutions.',
+    prize: 'Trophy & Certificate',
+    category: 'women',
+  },
+  {
+    id: 'rj-rathi',
+    title: 'Dr. R. J. Rathi Award',
+    tag: 'Sustainability',
+    tagColor: '#5d8068',
+    since: 'Since 1995',
+    icon: 'leaf',
+    image: '/assets/img/awards/rj-rathi.jpg',
+    imageAlt: 'Portrait of Dr. R. J. Rathi',
+    description:
+      'Instituted by the Dr. R. J. Rathi Charity Trust and administered by MCCIA since 1995, this award recognises industries in Maharashtra undertaking meaningful initiatives for environmental protection. It encourages adoption of environment-friendly practices and pollution control efforts.',
+    highlights: [
+      'Administered by MCCIA since 1995',
+      'Recognises green initiatives by industries in Maharashtra',
+      'Promotes environment-friendly industrial practices',
+      'Recognises efforts towards pollution control and abatement',
+      'Encourages businesses to contribute towards a greener, sustainable environment',
+    ],
+    eligibility:
+      'All small, medium and large-scale units in Manufacturing and Service Industry are eligible to apply.',
+    eligibilitySummary: 'Small, medium and large manufacturing or service units.',
+    prize: 'Trophy & Certificate',
+    category: 'sustainability',
+  },
+  {
+    id: 'bg-deshmukh',
+    title: 'B. G. Deshmukh IAS Award',
+    tag: 'Social Responsibility',
+    tagColor: '#b68f46',
+    since: 'Since 2008',
+    icon: 'handshake',
+    image: '/assets/img/awards/bg-deshmukh.jpg',
+    imageAlt: 'Portrait of B. G. Deshmukh',
+    description:
+      'Instituted in 2008 in memory of Mr. B. G. Deshmukh (IAS), this award encourages corporates to make CSR an integral part of their commitment to society. It recognises meaningful CSR initiatives contributing to social development and community empowerment.',
+    highlights: [
+      'Instituted in 2008',
+      'Recognises impactful CSR initiatives',
+      'Focus areas: health, education, livelihood, skill development, social empowerment',
+      'Encourages initiatives supporting weaker and disadvantaged sections of society',
+    ],
+    eligibility:
+      'Small, medium and large scale enterprises with CSR activity in handicapped, education, health and hygiene, environment, safety, conservation of energy, water, waste management or any social field. Industries can also nominate units where CSR is in practice.',
+    eligibilitySummary: 'Enterprises with CSR initiatives in social, environmental or community development.',
+    prize: 'Trophy & Certificate',
+    category: 'csr',
+  },
+  {
+    id: 'kiran-natu',
+    title: 'Late Kiran Natu Udyojakta Puraskar',
+    tag: 'First-Gen Entrepreneurs',
+    tagColor: '#a96f49',
+    since: 'Special Award',
+    icon: 'rocket',
+    image: '/assets/img/awards/kiran-natu.jpg',
+    imageAlt: 'Portrait of Kiran Natu',
+    description:
+      'Instituted in memory of Late Mr. Kiran Natu, a successful first-generation entrepreneur with interests across chemical and engineering industries, this award celebrates the spirit of entrepreneurship and enterprise building. Mr. Natu was a G. S. Parkhe Award recipient in 1996.',
+    highlights: [
+      'Recognises successful first-generation entrepreneurs',
+      'Instituted in memory of Late Mr. Kiran Natu',
+      'Celebrates entrepreneurial achievement and enterprise building',
+      'Mr. Natu was a G. S. Parkhe Award recipient (1996)',
+      'Also a NASSCOM New Product Award recipient (2005)',
+    ],
+    eligibility: 'First generation successful Entrepreneur in any field.',
+    eligibilitySummary: 'Successful first-generation entrepreneurs from any field.',
+    prize: 'Trophy, Medal & Cash Prize of ₹1 Lakh',
+    prizeSpecial: true,
+    category: 'firstgen',
+  },
+  {
+    id: 'ghorpade',
+    title: 'Brig. S. B. Ghorpade Award',
+    tag: 'Defence',
+    tagColor: '#42646a',
+    since: 'MSME Defence',
+    icon: 'shield',
+    image: '/assets/img/awards/ghorpade.jpg',
+    imageAlt: 'Portrait of Brig. S. B. Ghorpade',
+    description:
+      'This award recognises and encourages the efforts of MSMEs contributing to India\'s defence sector through supply of products and solutions under the Make in India initiative. It highlights the role of MSMEs in strengthening indigenous defence manufacturing.',
+    highlights: [
+      'Recognises MSMEs supplying to the defence sector',
+      'Encourages indigenous defence manufacturing',
+      'Supports the Make in India initiative',
+      'Highlights the contribution of MSMEs to the defence industrial ecosystem',
+    ],
+    eligibility:
+      'Motivating and recognising the efforts of MSMEs supplying to Defence under the Make In India initiative of the Government of India.',
+    eligibilitySummary: 'MSMEs supplying products or solutions to the defence sector.',
+    prize: 'Trophy & Certificate',
+    category: 'defence',
+  },
+  {
+    id: 'bg-chitale',
+    title: 'Late Shri B. G. Chitale Award',
+    tag: 'Agri, Dairy & Food',
+    tagColor: '#70865a',
+    since: 'Agri Sector',
+    icon: 'grain',
+    image: '/assets/img/awards/bg-chitale.jpg',
+    imageAlt: 'Portrait of B. G. Chitale',
+    description:
+      'Instituted in recognition of Late Shri B. G. Chitale, an iconic figure in Maharashtra\'s dairy industry, this award celebrates businesses demonstrating innovation, entrepreneurship and social responsibility in agri-based, dairy and food processing sectors.',
+    highlights: [
+      'Recognises agri-based, dairy and food processing businesses',
+      'Celebrates innovation and entrepreneurship',
+      'Recognises commitment to social responsibility',
+      'Evaluates sustainability and adoption of best practices',
+      'Considers quality standards and organisational values',
+    ],
+    eligibility:
+      'Recognising Agri-Based or Dairy / Food Processing business units for innovation, entrepreneurship and social responsibility.',
+    eligibilitySummary: 'Agri-based, dairy or food-processing businesses.',
+    prize: 'Trophy & Certificate',
+    category: 'agri',
+  },
+  {
+    id: 'kirloskar-export',
+    title: 'S. L. Kirloskar Export Excellence Award',
+    tag: 'Exports & Trade',
+    tagColor: '#3d7777',
+    since: 'MCCIA Members',
+    icon: 'globe',
+    image: '/assets/img/awards/kirloskar-export.jpg',
+    imageAlt: 'Portrait of S. L. Kirloskar',
+    description:
+      'Exports play a vital role in India\'s economic growth, with Pune and Maharashtra being significant contributors. MCCIA instituted this award to recognise outstanding export performance among member companies across small, medium and large-scale manufacturer-exporters.',
+    highlights: [
+      'Open to MCCIA members only',
+      'Recognises manufacturer-exporters',
+      'Three categories: Small, Medium and Large Scale',
+      'Selection based on export value for FY 2024–25',
+      'Export performance from the preceding two years is also considered',
+    ],
+    eligibility:
+      'Open to MCCIA members only. Manufacturer Exporters in Small, Medium and Large Scale categories.',
+    eligibilitySummary: 'MCCIA-member manufacturer-exporters in small, medium or large categories.',
+    prize: 'Trophy & Certificate',
+    category: 'exports',
+  },
+  {
+    id: 'sustainability-mccia',
+    title: 'MCCIA Award for Sustainability',
+    tag: 'Employee Sustainability',
+    tagColor: '#4c806e',
+    since: 'New Category',
+    icon: 'recycle',
+    image: '/assets/img/awards/sustainability-kpit.jpg',
+    imageAlt: 'KPIT Technologies logo',
+    imageType: 'logo',
+    description:
+      'This award recognises companies that drive meaningful sustainability initiatives through active employee engagement. It highlights efforts ranging from waste elimination and sustainable products to workplace practices that reduce environmental impact.',
+    highlights: [
+      'Recognises employee-led sustainability initiatives',
+      'Focuses on waste elimination and resource efficiency',
+      'Recognises sustainable products and technologies',
+      'Encourages adoption of best practices and circularity',
+      'Promotes behavioural change and reduced environmental impact',
+    ],
+    eligibility:
+      'Employee engagement in sustainability — waste elimination, sustainable products and technologies, and other impactful employee-led efforts.',
+    eligibilitySummary: 'Organisations demonstrating employee engagement in sustainability.',
+    prize: 'Trophy & Certificate',
+    category: 'sustainability',
+  },
+];
+
+export const processSteps = [
+  {
+    num: '01',
+    title: 'Application Submission',
+    desc: 'Submit the completed form along with product catalogues and photographs by 15 November 2026.',
+  },
+  {
+    num: '02',
+    title: 'Expert Jury Review',
+    desc: "MCCIA's expert jury reviews all submissions and shortlists the most deserving candidates.",
+  },
+  {
+    num: '03',
+    title: 'Additional Documentation',
+    desc: 'Shortlisted applicants provide further details, sales literature, and bio-data.',
+  },
+  {
+    num: '04',
+    title: 'Interview & Presentation',
+    desc: 'Shortlisted candidates present their case before the Selection Committee.',
+  },
+  {
+    num: '05',
+    title: 'Further Evaluation',
+    desc: 'The Committee may seek additional information, documents, or discussions before finalising.',
+  },
+  {
+    num: '06',
+    title: 'Works / Factory Visit',
+    desc: "Where necessary, the Selection Committee visits the workplace for an on-the-spot evaluation.",
+  },
+];
+
+export const faqs = [
+  {
+    q: 'Which award should I apply for?',
+    a: "Read each award's eligibility criteria carefully. You can apply to every category your organisation genuinely qualifies for. Use the filter on the awards section to find the right category.",
+  },
+  {
+    q: 'Who is eligible to apply?',
+    a: 'Eligibility varies by award. The Dr. R. J. Rathi Award is open to all small, medium and large-scale manufacturing and service units. The S. L. Kirloskar Export Excellence Award is open to MCCIA members only. Check each award for its exact eligibility.',
+  },
+  {
+    q: 'What does an awardee receive?',
+    a: 'A trophy and a certificate. The Late Kiran Natu Udyojakta Puraskar additionally carries a medal and a cash prize of ₹1 lakh.',
+  },
+  {
+    q: 'What is the last date for submission?',
+    a: '15 November 2026, for all nine award categories.',
+  },
+  {
+    q: 'How is my entry evaluated?',
+    a: "Submissions are reviewed by MCCIA's expert jury. Shortlisted applicants are asked for further documentation, then invited to present to the Selection Committee. The committee may also conduct a factory visit.",
+  },
+  {
+    q: 'Can I nominate another organisation?',
+    a: 'For the B. G. Deshmukh IAS Award, industries can also nominate units where CSR is in practice. For all other awards, the applicant is normally the organisation or entrepreneur claiming the award.',
+  },
+  {
+    q: 'What should I send with my application?',
+    a: 'The completed form along with product catalogues and photographs. If shortlisted, you will be asked for additional documentation including sales literature and bio-data.',
+  },
+  {
+    q: 'Whom do I contact for clarifications?',
+    a: 'Write to the MCCIA awards desk at sudhanwak@mcciapune.com, or call +91 20 2570 9000.',
+  },
+];
