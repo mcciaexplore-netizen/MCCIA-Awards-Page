@@ -44,7 +44,6 @@ function Header({ onNominate }) {
     <>
       <Link to="/awards" onClick={() => setMobileOpen(false)}>Awards</Link>
       <Link to="/#process" onClick={() => setMobileOpen(false)}>Selection process</Link>
-      <Link to="/application-guide" onClick={() => setMobileOpen(false)}>Application guide</Link>
       <button className="btn-nominate" onClick={() => { setMobileOpen(false); onNominate(); }}>
         Nominate Now
       </button>
@@ -154,12 +153,27 @@ function Overview() {
             </p>
           </Reveal>
           <Reveal delay={150}>
-            <p className="prose-text">
+            <p className="prose-text overview-quote">
               From a breakthrough idea to a resilient entrepreneur, from a business taking Indian capability to global
               markets to an organisation embedding sustainability in how it operates, excellence takes many forms.
             </p>
           </Reveal>
         </div>
+        <Reveal delay={250}>
+          <dl className="overview-stats">
+            {[
+              [`${awardsData.length}`, 'Award categories'],
+              ['1947', 'First award presented'],
+              ['400+', 'Entrepreneurs recognised by the Parkhe Award'],
+              ['15 Nov 2026', 'Nomination deadline'],
+            ].map(([value, label]) => (
+              <div key={label}>
+                <dt>{value}</dt>
+                <dd>{label}</dd>
+              </div>
+            ))}
+          </dl>
+        </Reveal>
       </div>
     </section>
   );
@@ -290,28 +304,22 @@ function AwardsPreview() {
       <div className="wrap">
         <Reveal className="section-head">
           <p className="eyebrow">The MCCIA Awards</p>
-          <h2 id="home-awards-heading">Awards for every kind of excellence</h2>
+          <h2 id="home-awards-heading">Categories for every kind of excellence</h2>
           <div className="rule" />
-          <p className="prose-text">Explore the award categories and open a profile to review its criteria.</p>
+          <p className="prose-text">Explore the award categories and open one to review its criteria.</p>
         </Reveal>
 
         <div className="home-category-grid">
-          {awardsData.map(award => (
+          {awardsData.map((award, index) => (
             <Link key={award.id} to={`/awards/${award.id}`} className="home-category-link" style={{ '--tag-color': award.tagColor }}>
-              <span className={`home-category-image ${award.imageType === 'logo' ? 'home-category-image-logo' : ''}`}>
-                <img src={award.image} alt="" loading="lazy" decoding="async" />
-              </span>
               <span className="home-category-copy">
-                <span className="home-category-tag">{award.tag}</span>
-                <strong>{award.title}</strong>
+                <span className="home-category-tag">{String(index + 1).padStart(2, '0')} · {award.since}</span>
+                <strong>{award.tag}</strong>
+                <span className="home-category-desc">{award.eligibilitySummary}</span>
               </span>
               <span className="home-category-arrow" aria-hidden="true">→</span>
             </Link>
           ))}
-        </div>
-
-        <div className="home-category-action">
-          <Link to="/awards" className="btn-text">Browse all awards <span aria-hidden="true">→</span></Link>
         </div>
       </div>
     </section>
@@ -343,7 +351,6 @@ function AwardsPage() {
           <h1 id="awards-directory-heading">Find the right award for your work</h1>
           <div className="rule" />
           <p className="prose-text">Search categories and eligibility. Open any award for its full criteria and recognition.</p>
-          <Link to="/application-guide" className="btn-text">How to prepare an application <span aria-hidden="true">→</span></Link>
         </Reveal>
 
         <div className="home-award-explorer">
@@ -420,7 +427,6 @@ function Process() {
         <Reveal>
           <p className="process-close">After careful evaluation and deliberation, the jury finalises the awardees.</p>
         </Reveal>
-        <p className="process-guide-link"><Link to="/application-guide">See what to prepare before applying <span aria-hidden="true">→</span></Link></p>
       </div>
     </section>
   );
@@ -778,7 +784,6 @@ function Footer() {
           <h4>Quick Links</h4>
           <a href="/#overview">Overview</a>
           <Link to="/awards">The Awards</Link>
-          <Link to="/application-guide">Application Guide</Link>
           <a href="/#process">Selection Process</a>
           <a href="/#faq">FAQs</a>
         </div>
@@ -834,97 +839,6 @@ function HomePage({ onNominate }) {
       <FAQ />
       <CTA onNominate={onNominate} />
     </>
-  );
-}
-
-function ApplicationGuidePage({ onNominate }) {
-  const [checkedItems, setCheckedItems] = useState({});
-  const preparationItems = [
-    'Review the eligibility criteria for the award you are considering.',
-    'Have your organisation and contact details ready.',
-    'Prepare a concise account of your achievements and impact.',
-    'Gather product catalogues and photographs. Shortlisted applicants may be asked for further documentation.',
-  ];
-
-  return (
-    <section className="application-guide section">
-      <div className="wrap">
-        <Link to="/awards" className="guide-back-link">← Browse award categories</Link>
-        <header className="guide-header">
-          <p className="eyebrow">Application guide</p>
-          <h1>Know what to prepare before you apply</h1>
-          <p>Check eligibility, gather your materials and understand the selection process before starting a nomination.</p>
-        </header>
-
-        <div className="guide-notice" role="note">
-          <strong>Important:</strong> The nomination form on this website is a preview only. It does not send or store applications. Contact the MCCIA Awards Desk to confirm the official submission process.
-          <div className="guide-contact-links">
-            <a href="mailto:sudhanwak@mcciapune.com">Email the Awards Desk</a>
-            <a href="tel:+912025709000">Call +91 20 2570 9000</a>
-          </div>
-        </div>
-
-        <section className="guide-block" aria-labelledby="preparation-heading">
-          <h2 id="preparation-heading">Your preparation checklist</h2>
-          <ul className="guide-checklist">
-            {preparationItems.map((item, index) => (
-              <li key={item}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={Boolean(checkedItems[index])}
-                    onChange={event => setCheckedItems(current => ({ ...current, [index]: event.target.checked }))}
-                  />
-                  <span>{item}</span>
-                </label>
-              </li>
-            ))}
-          </ul>
-          <p className="guide-document-note">The site does not list a downloadable application PDF. Contact the Awards Desk for the current official form and submission instructions.</p>
-        </section>
-
-        <section className="guide-block" aria-labelledby="eligibility-heading">
-          <h2 id="eligibility-heading">Eligibility at a glance</h2>
-          <p className="guide-section-copy">Use these summaries to narrow your search. The full criteria on each award page take precedence.</p>
-          <ul className="guide-award-grid">
-            {awardsData.map(award => (
-              <li key={award.id}>
-                <Link to={`/awards/${award.id}`}>
-                  <span>{award.tag}</span>
-                  <strong>{award.title}</strong>
-                  <p>{award.eligibilitySummary}</p>
-                  <span className="guide-card-link">View details <span aria-hidden="true">→</span></span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="guide-block guide-process" aria-labelledby="guide-process-heading">
-          <h2 id="guide-process-heading">The selection process</h2>
-          <ol className="guide-process-list">
-            {processSteps.map(step => (
-              <li key={step.title}>
-                <div>
-                  <h3>{step.title}</h3>
-                  <p>{step.desc}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        <div className="guide-deadline">
-          <div>
-            <h2>Submission deadline</h2>
-            <p>15 November 2026. Confirm the official form and submission channel with MCCIA.</p>
-          </div>
-          <button className="btn-gold" type="button" onClick={() => onNominate()}>
-            View nomination form
-          </button>
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -1049,7 +963,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage onNominate={openNomination} />} />
           <Route path="/awards" element={<AwardsPage />} />
-          <Route path="/application-guide" element={<ApplicationGuidePage onNominate={openNomination} />} />
           <Route path="/awards/:id" element={<AwardDetailPage onNominate={openNomination} />} />
           <Route path="*" element={<div className="not-found wrap"><h1>Page not found</h1><p>This page may have moved. Browse the awards to continue.</p><Link className="btn-gold" to="/awards">Browse awards</Link></div>} />
         </Routes>
