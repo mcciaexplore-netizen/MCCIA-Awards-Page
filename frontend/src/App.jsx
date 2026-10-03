@@ -32,18 +32,50 @@ function Reveal({ children, className = '', delay = 0 }) {
 }
 
 /* ─── Header ─────────────────────────────────────────── */
+function SkeletonImage({ src, alt, ...rest }) {
+  const [loaded, setLoaded] = useState(false);
+  const ref = useRef(null);
+  useEffect(() => {
+    setLoaded(Boolean(ref.current?.complete && ref.current?.naturalWidth));
+  }, [src]);
+  return (
+    <>
+      {!loaded && <span className="img-skeleton" aria-hidden="true" />}
+      <img ref={ref} src={src} alt={alt} className={loaded ? 'img-loaded' : 'img-loading'} onLoad={() => setLoaded(true)} onError={() => setLoaded(true)} {...rest} />
+    </>
+  );
+}
+
 function Header({ onNominate }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const { pathname } = useLocation();
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', fn);
+    window.addEventListener('scroll', fn, { passive: true });
     return () => window.removeEventListener('scroll', fn);
   }, []);
+  useEffect(() => {
+    setActiveSection('');
+    if (pathname !== '/') return undefined;
+    const targets = ['awards', 'process'].map(id => document.getElementById(id)).filter(Boolean);
+    if (!targets.length) return undefined;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) setActiveSection(entry.target.id);
+        else setActiveSection(current => (current === entry.target.id ? '' : current));
+      });
+    }, { rootMargin: '-35% 0px -55% 0px' });
+    targets.forEach(target => observer.observe(target));
+    return () => observer.disconnect();
+  }, [pathname]);
+  const awardsActive = pathname.startsWith('/awards') || activeSection === 'awards';
+  const processActive = activeSection === 'process';
   const nav = (
     <>
-      <Link to="/awards" onClick={() => setMobileOpen(false)}>Awards</Link>
-      <Link to="/#process" onClick={() => setMobileOpen(false)}>Selection process</Link>
+      <Link to="/awards" className={awardsActive ? 'active' : ''} aria-current={awardsActive ? 'page' : undefined} onClick={() => setMobileOpen(false)}>Awards</Link>
+      <Link to="/#process" className={processActive ? 'active' : ''} aria-current={processActive ? 'location' : undefined} onClick={() => setMobileOpen(false)}>Selection process</Link>
       <button className="btn-nominate" onClick={() => { setMobileOpen(false); onNominate(); }}>
         Nominate Now
       </button>
@@ -159,21 +191,6 @@ function Overview() {
             </p>
           </Reveal>
         </div>
-        <Reveal delay={250}>
-          <dl className="overview-stats">
-            {[
-              [`${awardsData.length}`, 'Award categories'],
-              ['1947', 'First award presented'],
-              ['400+', 'Entrepreneurs recognised by the Parkhe Award'],
-              ['15 Nov 2026', 'Nomination deadline'],
-            ].map(([value, label]) => (
-              <div key={label}>
-                <dt>{value}</dt>
-                <dd>{label}</dd>
-              </div>
-            ))}
-          </dl>
-        </Reveal>
       </div>
     </section>
   );
@@ -276,7 +293,7 @@ function AwardCard({ award, delay }) {
           <div className="award-card-top">
             <div className={`award-image-frame ${award.imageType === 'logo' ? 'award-image-frame-logo' : ''}`}>
               {award.image ? (
-                <img src={award.image} alt={award.imageAlt} loading="lazy" decoding="async" />
+                <SkeletonImage src={award.image} alt={award.imageAlt} loading="lazy" decoding="async" />
               ) : (
                 <span className="award-image-fallback" aria-hidden="true">{AWARD_ICONS[award.icon]}</span>
               )}
@@ -298,6 +315,25 @@ function AwardCard({ award, delay }) {
   );
 }
 
+function TrophyIcon() {
+  return (
+    <svg className="home-category-trophy" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="trophy-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#f0d58f" />
+          <stop offset="1" stopColor="#b68f46" />
+        </linearGradient>
+      </defs>
+      <path d="M18 8h28v16c0 9-6 15-14 15s-14-6-14-15V8z" fill="url(#trophy-gold)" />
+      <path d="M18 12H8c0 9 4 15 11 16M46 12h10c0 9-4 15-11 16" fill="none" stroke="#b68f46" strokeWidth="3" strokeLinecap="round" />
+      <path d="M28 38h8v8h-8z" fill="#b68f46" />
+      <path d="M22 46h20l2 6H20z" fill="url(#trophy-gold)" />
+      <rect x="16" y="52" width="32" height="5" rx="1.5" fill="#8f6f33" />
+      <path d="M32 14l2.5 5 5.5.8-4 3.9.9 5.4-4.9-2.6-4.9 2.6.9-5.4-4-3.9 5.5-.8z" fill="#fff" opacity=".85" />
+    </svg>
+  );
+}
+
 function AwardsPreview() {
   return (
     <section className="section home-awards" id="awards" aria-labelledby="home-awards-heading">
@@ -310,10 +346,11 @@ function AwardsPreview() {
         </Reveal>
 
         <div className="home-category-grid">
-          {awardsData.map((award, index) => (
+          {awardsData.map(award => (
             <Link key={award.id} to={`/awards/${award.id}`} className="home-category-link" style={{ '--tag-color': award.tagColor }}>
+              <TrophyIcon />
               <span className="home-category-copy">
-                <span className="home-category-tag">{String(index + 1).padStart(2, '0')} · {award.since}</span>
+                <span className="home-category-tag">{award.since}</span>
                 <strong>{award.tag}</strong>
                 <span className="home-category-desc">{award.eligibilitySummary}</span>
               </span>
@@ -330,16 +367,24 @@ function AwardsPage() {
   const filters = ['All', ...new Set(awardsData.map(award => award.tag))];
   const [active, setActive] = useState('All');
   const [search, setSearch] = useState('');
+  const [sort, setSort] = useState('default');
   const query = search.trim().toLowerCase();
-  const filtered = awardsData.filter(award => {
-    const matchesCategory = active === 'All' || award.tag === active;
-    const searchableText = [award.title, award.tag, award.description, award.eligibility, award.eligibilitySummary, ...award.highlights].join(' ').toLowerCase();
-    return matchesCategory && (!query || searchableText.includes(query));
-  });
+  const terms = query.split(/\s+/).filter(Boolean);
+  const matchesSearch = award => {
+    const text = [award.title, award.tag, award.description, award.eligibility, award.eligibilitySummary, ...award.highlights].join(' ').toLowerCase();
+    return terms.every(term => text.includes(term));
+  };
+  const searchMatches = awardsData.filter(matchesSearch);
+  const countFor = filter => (filter === 'All' ? searchMatches.length : searchMatches.filter(a => a.tag === filter).length);
+  const filtered = searchMatches
+    .filter(award => active === 'All' || award.tag === active)
+    .sort((a, b) => (sort === 'az' ? a.title.localeCompare(b.title) : sort === 'za' ? b.title.localeCompare(a.title) : 0));
+  const hasFilters = active !== 'All' || query !== '' || sort !== 'default';
 
   const clearFilters = () => {
     setActive('All');
     setSearch('');
+    setSort('default');
   };
 
   return (
@@ -363,6 +408,7 @@ function AwardsPage() {
               value={search}
               onChange={event => setSearch(event.target.value)}
             />
+            {search && <button type="button" className="search-clear" aria-label="Clear search" onClick={() => setSearch('')}>✕</button>}
           </div>
           <div className="filter-chips-modern" role="group" aria-label="Filter awards by category">
             {filters.map(filter => (
@@ -373,9 +419,18 @@ function AwardsPage() {
                 aria-pressed={active === filter}
                 onClick={() => setActive(filter)}
               >
-                {filter}
+                {filter} <span className="chip-count">{countFor(filter)}</span>
               </button>
             ))}
+          </div>
+          <div className="sort-row">
+            <label htmlFor="award-sort">Sort by</label>
+            <select id="award-sort" value={sort} onChange={event => setSort(event.target.value)}>
+              <option value="default">Featured</option>
+              <option value="az">Title A–Z</option>
+              <option value="za">Title Z–A</option>
+            </select>
+            {hasFilters && <button type="button" className="btn-ghost sort-reset" onClick={clearFilters}>Reset all</button>}
           </div>
         </div>
 
@@ -466,22 +521,80 @@ function NominationModal({ initialAward, onClose }) {
   const dialogRef = useRef(null);
   const closeButtonRef = useRef(null);
   const [step, setStep] = useState(1);
-  const [form, setForm] = useState({
-    businessName: '',
-    contactName: '',
-    email: '',
-    phone: '',
-    city: '',
-    awardCategory: initialAward,
-    turnover: '',
-    employees: '',
-    description: '',
-    achievements: '',
-    file: null,
-    agree: false,
+  const [form, setForm] = useState(() => {
+    const blank = {
+      businessName: '',
+      contactName: '',
+      email: '',
+      phone: '',
+      city: '',
+      awardCategory: initialAward,
+      turnover: '',
+      employees: '',
+      description: '',
+      achievements: '',
+      file: null,
+      agree: false,
+    };
+    try {
+      const draft = JSON.parse(sessionStorage.getItem('mccia-nomination-draft') || 'null');
+      if (draft) return { ...blank, ...draft, awardCategory: initialAward || draft.awardCategory || '', file: null, agree: false };
+    } catch { /* storage unavailable */ }
+    return blank;
+  });
+  const [draftRestored] = useState(() => {
+    try { return Boolean(sessionStorage.getItem('mccia-nomination-draft')); } catch { return false; }
   });
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    try {
+      const { file, agree, ...draft } = form;
+      sessionStorage.setItem('mccia-nomination-draft', JSON.stringify(draft));
+    } catch { /* storage unavailable */ }
+  }, [form]);
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = previousOverflow; };
+  }, []);
+
+  useEffect(() => {
+    dialogRef.current?.scrollTo?.({ top: 0 });
+  }, [step]);
+
+  const validators = {
+    businessName: v => (!v.trim() ? 'Required' : ''),
+    contactName: v => (!v.trim() ? 'Required' : ''),
+    email: v => (!v.trim() || !/\S+@\S+\.\S+/.test(v) ? 'Valid email required' : ''),
+    phone: v => (!/^\+?[\d\s().-]{7,20}$/.test(v.trim()) || v.replace(/\D/g, '').length < 7 ? 'Enter a valid phone number' : ''),
+  };
+  const validateOnBlur = key => {
+    const message = validators[key]?.(form[key]);
+    setErrors(current => {
+      if (message) return { ...current, [key]: message };
+      if (!current[key]) return current;
+      const next = { ...current };
+      delete next[key];
+      return next;
+    });
+  };
+  const MAX_FILE_MB = 5;
+  const onFile = file => {
+    if (file && file.size > MAX_FILE_MB * 1024 * 1024) {
+      setErrors(current => ({ ...current, file: `File is larger than ${MAX_FILE_MB} MB. Choose a smaller one.` }));
+      return;
+    }
+    set('file', file);
+  };
+  const onEnter = event => {
+    if (event.key === 'Enter' && event.target.tagName === 'INPUT' && event.target.type !== 'checkbox' && event.target.type !== 'file') {
+      event.preventDefault();
+      next();
+    }
+  };
 
   const set = (k, v) => {
     setForm(p => ({ ...p, [k]: v }));
@@ -568,7 +681,10 @@ function NominationModal({ initialAward, onClose }) {
   const next = () => {
     if (step === 1 && validateStep1()) setStep(2);
     if (step === 2 && validateStep2()) setStep(3);
-    if (step === 3 && validateStep3()) setSubmitted(true);
+    if (step === 3 && validateStep3()) {
+      try { sessionStorage.removeItem('mccia-nomination-draft'); } catch { /* ignore */ }
+      setSubmitted(true);
+    }
   };
 
   const stepLabels = ['Contact details', 'Select award', 'Your story'];
@@ -593,14 +709,22 @@ function NominationModal({ initialAward, onClose }) {
     <div className="modal-overlay" onClick={onClose}>
       <div ref={dialogRef} className="modal glass-card" role="dialog" aria-modal="true" aria-labelledby="nomination-title" tabIndex="-1" onClick={e => e.stopPropagation()}>
         <button ref={closeButtonRef} className="modal-close" type="button" onClick={onClose} aria-label="Close nomination form preview">✕</button>
-          <div className="form-notice" role="note">
-            This is a form preview only. It does not transmit or save your details. Contact <a href="mailto:sudhanwak@mcciapune.com">the MCCIA Awards Desk</a> to submit an official nomination.
+        <div className="modal-head">
+          <p className="modal-eyebrow">MCCIA Awards 2026 · Closes 15 November</p>
+          <h2 className="modal-title" id="nomination-title">Nominate your business</h2>
+          <div className="form-progress" role="progressbar" aria-valuemin={1} aria-valuemax={3} aria-valuenow={step} aria-label={`Step ${step} of 3: ${stepLabels[step - 1]}`}>
+            <div className="form-progress-bar" style={{ width: `${(step / 3) * 100}%` }} />
+          </div>
         </div>
+        <div className="modal-body">
+          <div className="form-notice" role="note">
+            Preview only: your details are not sent or saved. <a href="mailto:sudhanwak@mcciapune.com">Contact the Awards Desk</a> to submit officially.
+          </div>
         {/* Step indicator */}
         <div className="step-indicator">
           {stepLabels.map((l, i) => (
             <React.Fragment key={i}>
-              <div className={`step-dot ${step > i + 1 ? 'done' : step === i + 1 ? 'active' : ''}`} aria-current={step === i + 1 ? 'step' : undefined}>
+              <div className={`step-dot ${step > i + 1 ? 'done' : step === i + 1 ? 'active' : ''}`} aria-current={step === i + 1 ? 'step' : undefined} role={step > i + 1 ? 'button' : undefined} tabIndex={step > i + 1 ? 0 : undefined} onClick={step > i + 1 ? () => setStep(i + 1) : undefined} onKeyDown={step > i + 1 ? e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setStep(i + 1); } } : undefined}>
                 {step > i + 1 ? '✓' : i + 1}
                 <span>{l}</span>
               </div>
@@ -608,33 +732,32 @@ function NominationModal({ initialAward, onClose }) {
             </React.Fragment>
           ))}
         </div>
-        <h2 className="modal-title" id="nomination-title">Nomination form preview</h2>
-        <p className="modal-sub">Deadline: 15 November 2026</p>
 
         {/* Step 1: Contact */}
         {step === 1 && (
-          <div className="form-step">
+          <div className="form-step" onKeyDown={onEnter}>
+            <p className="form-required-note"><span aria-hidden="true">*</span> Required{draftRestored && ' · We restored your earlier draft'}</p>
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="business-name">Business / organisation name <span aria-hidden="true">*</span></label>
-                <input id="business-name" type="text" autoComplete="organization" required aria-invalid={Boolean(errors.businessName)} aria-describedby={errors.businessName ? 'business-name-error' : undefined} value={form.businessName} onChange={e => set('businessName', e.target.value)} placeholder="Organisation name" />
+                <input id="business-name" onBlur={() => validateOnBlur('businessName')} type="text" autoComplete="organization" required aria-invalid={Boolean(errors.businessName)} aria-describedby={errors.businessName ? 'business-name-error' : undefined} value={form.businessName} onChange={e => set('businessName', e.target.value)} placeholder="Organisation name" />
                 {errors.businessName && <span className="field-error" id="business-name-error" role="alert">{errors.businessName}</span>}
               </div>
               <div className="form-group">
                 <label htmlFor="contact-name">Contact person <span aria-hidden="true">*</span></label>
-                <input id="contact-name" type="text" autoComplete="name" required aria-invalid={Boolean(errors.contactName)} aria-describedby={errors.contactName ? 'contact-name-error' : undefined} value={form.contactName} onChange={e => set('contactName', e.target.value)} placeholder="Full name" />
+                <input id="contact-name" onBlur={() => validateOnBlur('contactName')} type="text" autoComplete="name" required aria-invalid={Boolean(errors.contactName)} aria-describedby={errors.contactName ? 'contact-name-error' : undefined} value={form.contactName} onChange={e => set('contactName', e.target.value)} placeholder="Full name" />
                 {errors.contactName && <span className="field-error" id="contact-name-error" role="alert">{errors.contactName}</span>}
               </div>
             </div>
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="contact-email">Email address <span aria-hidden="true">*</span></label>
-                <input id="contact-email" type="email" autoComplete="email" required aria-invalid={Boolean(errors.email)} aria-describedby={errors.email ? 'contact-email-error' : undefined} value={form.email} onChange={e => set('email', e.target.value)} placeholder="name@company.com" />
+                <input id="contact-email" onBlur={() => validateOnBlur('email')} type="email" autoComplete="email" required aria-invalid={Boolean(errors.email)} aria-describedby={errors.email ? 'contact-email-error' : undefined} value={form.email} onChange={e => set('email', e.target.value)} placeholder="name@company.com" />
                 {errors.email && <span className="field-error" id="contact-email-error" role="alert">{errors.email}</span>}
               </div>
               <div className="form-group">
                 <label htmlFor="contact-phone">Phone number <span aria-hidden="true">*</span></label>
-                <input id="contact-phone" type="tel" autoComplete="tel" required aria-invalid={Boolean(errors.phone)} aria-describedby={errors.phone ? 'contact-phone-error' : undefined} value={form.phone} onChange={e => set('phone', e.target.value)} placeholder="+91 98765 43210" />
+                <input id="contact-phone" inputMode="tel" onBlur={() => validateOnBlur('phone')} type="tel" autoComplete="tel" required aria-invalid={Boolean(errors.phone)} aria-describedby={errors.phone ? 'contact-phone-error' : undefined} value={form.phone} onChange={e => set('phone', e.target.value)} placeholder="+91 98765 43210" />
                 {errors.phone && <span className="field-error" id="contact-phone-error" role="alert">{errors.phone}</span>}
               </div>
             </div>
@@ -706,10 +829,15 @@ function NominationModal({ initialAward, onClose }) {
         {/* Step 3: Story */}
         {step === 3 && (
           <div className="form-step">
+            <div className="review-summary">
+              <div><span>Nominee</span><strong>{form.businessName}</strong></div>
+              <div><span>Award</span><strong>{form.awardCategory}</strong></div>
+              <button type="button" className="review-edit" onClick={() => setStep(1)}>Edit details</button>
+            </div>
             <div className="form-group">
               <label htmlFor="nomination-story">Describe your work and achievements <span aria-hidden="true">*</span></label>
-              <textarea id="nomination-story" required aria-invalid={Boolean(errors.description)} aria-describedby={errors.description ? 'nomination-story-error' : 'nomination-story-help'} value={form.description} onChange={e => set('description', e.target.value)} rows="4" placeholder="Describe the work that makes your organisation a fit for this award." />
-              <span className="form-help" id="nomination-story-help">Include the initiative, what changed and the results you can substantiate.</span>
+              <textarea id="nomination-story" required aria-invalid={Boolean(errors.description)} aria-describedby={errors.description ? 'nomination-story-error' : 'nomination-story-help'} value={form.description} maxLength={1500} onChange={e => set('description', e.target.value)} rows="5" placeholder="Describe the work that makes your organisation a fit for this award." />
+              <span className="form-help" id="nomination-story-help">Include the initiative, what changed and the results you can substantiate. <span className="char-count">{form.description.trim().length}/1500</span></span>
               {errors.description && <span className="field-error" id="nomination-story-error" role="alert">{errors.description}</span>}
             </div>
             <div className="form-group">
@@ -718,12 +846,15 @@ function NominationModal({ initialAward, onClose }) {
             </div>
             <div className="form-group">
               <label htmlFor="fileUpload">Supporting document (optional)</label>
-              <div className="file-input-wrap">
-                <input type="file" id="fileUpload" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" aria-describedby="supporting-file-help" onChange={e => set('file', e.target.files?.[0] || null)} />
+              <div className={`file-drop ${form.file ? 'has-file' : ''}`}>
+                <input type="file" id="fileUpload" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" aria-describedby="supporting-file-help" onChange={e => onFile(e.target.files?.[0] || null)} />
+                <span className="file-drop-text">{form.file ? <><strong>{form.file.name}</strong> · {(form.file.size / 1024).toFixed(0)} KB</> : <><strong>Choose a file</strong> or drag it here</>}</span>
+                {form.file && <button type="button" className="file-remove" onClick={() => { set('file', null); document.getElementById('fileUpload').value = ''; }}>Remove</button>}
               </div>
               <span className="form-help" id="supporting-file-help" aria-live="polite">
-                Accepted formats: PDF, DOC, DOCX, JPG, JPEG and PNG. {form.file ? `${form.file.name} selected.` : 'A catalogue or photograph can support your nomination.'}
+                PDF, DOC, DOCX, JPG or PNG, up to {MAX_FILE_MB} MB. A catalogue or photograph can support your nomination.
               </span>
+              {errors.file && <span className="field-error" role="alert">{errors.file}</span>}
             </div>
             <div className="form-group checkbox-group">
               <label>
@@ -735,8 +866,11 @@ function NominationModal({ initialAward, onClose }) {
           </div>
         )}
 
+        </div>
+
         <div className="modal-actions">
           {step > 1 && <button className="btn-ghost" type="button" onClick={() => setStep(step - 1)}>← Back</button>}
+          <span className="modal-step-count">Step {step} of 3</span>
           <button className="btn-gold" type="button" onClick={next}>
             {step < 3 ? 'Continue →' : 'Finish preview'}
           </button>
@@ -864,7 +998,7 @@ function AwardDetailPage({ onNominate }) {
           <div className="detail-hero-content">
             <div className={`award-image-frame detail-award-image ${award.imageType === 'logo' ? 'award-image-frame-logo' : ''}`}>
               {award.image ? (
-                <img src={award.image} alt={award.imageAlt} />
+                <SkeletonImage src={award.image} alt={award.imageAlt} />
               ) : (
                 <span className="award-image-fallback" aria-hidden="true">{AWARD_ICONS[award.icon]}</span>
               )}
