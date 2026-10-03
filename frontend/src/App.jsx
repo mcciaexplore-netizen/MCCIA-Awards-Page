@@ -189,6 +189,11 @@ function Overview() {
               From a breakthrough idea to a resilient entrepreneur, from a business taking Indian capability to global
               markets to an organisation embedding sustainability in how it operates, excellence takes many forms.
             </p>
+            <ul className="overview-focus" aria-label="Areas recognised by the awards">
+              {['Industry', 'Entrepreneurship', 'Innovation', 'Exports', 'Sustainability', 'Social responsibility'].map((area, index) => (
+                <li key={area}><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>{area}</li>
+              ))}
+            </ul>
           </Reveal>
         </div>
       </div>
@@ -889,7 +894,7 @@ function CTA({ onNominate }) {
         <Reveal>
           <p className="eyebrow eyebrow-light">Ready to apply?</p>
           <h2>Your business belongs among India's best.</h2>
-          <p>Nominations close <strong>15 November 2026</strong>. The selection process is thorough and fair — assessed by an expert jury and an industry selection committee.</p>
+          <p>Nominations close <strong>15 November 2026</strong>. The selection process is thorough and fair, assessed by an expert jury and an industry selection committee.</p>
           <div className="cta-actions">
             <button className="btn-gold" onClick={onNominate}>Nominate Your Business</button>
             <a href="mailto:sudhanwak@mcciapune.com" className="btn-ghost-light">Write to the Awards Desk</a>
@@ -930,7 +935,6 @@ function Footer() {
       </div>
       <div className="footer-bottom">
         <p>© 2026 Mahratta Chamber of Commerce, Industries and Agriculture. All rights reserved.</p>
-        <p>MCCIA Annual Awards · Established 1946</p>
       </div>
     </footer>
   );

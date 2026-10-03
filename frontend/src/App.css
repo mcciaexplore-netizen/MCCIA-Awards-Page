@@ -2366,3 +2366,50 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
   .modal .step-dot span { display: none; }
   .modal .step-indicator { margin-bottom: 1.5rem; }
 }
+
+/* ─── Hero legibility + tighter spacing ───────────────── */
+.hero.hero-cinematic::before {
+  background:
+    radial-gradient(ellipse 75% 70% at 50% 48%, rgba(4, 44, 41, .78) 0%, rgba(4, 44, 41, .55) 60%, rgba(4, 44, 41, .3) 100%),
+    linear-gradient(0deg, rgba(3, 35, 33, .7) 0%, transparent 40%);
+}
+.hero-title, .hero-description, .hero-kicker { text-shadow: 0 2px 18px rgba(2, 28, 26, .7); }
+.hero-description { color: #fff; }
+.hero.hero-cinematic { min-height: clamp(520px, 80svh, 760px); }
+
+.section { padding: 3rem 0; }
+.overview-section .two-col { gap: 3rem; align-items: start; }
+.overview-section.section { padding-top: 3rem; padding-bottom: 1.5rem; }
+.home-awards.section { padding-top: 1.5rem; padding-bottom: 3rem; }
+.section-head { margin-bottom: 2rem; }
+#faq .section-head { margin-bottom: 2rem; }
+.cta-section { padding: 3.5rem 0; }
+@media (max-width: 900px) { .overview-section .two-col { gap: 1.5rem; } }
+
+/* ─── FAQ width + spacing ─────────────────────────────── */
+.faq-list { max-width: 1100px; gap: .6rem; }
+.faq-q { padding: 1rem 1.5rem; }
+.faq-a { padding: 0 1.5rem 1rem; }
+#faq.section { padding-top: 2rem; padding-bottom: 2.5rem; }
+#faq .section-head { margin-bottom: 1.5rem; }
+
+/* ─── Overview focus areas ────────────────────────────── */
+.overview-focus {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; margin-top: 1.75rem;
+}
+.overview-focus li {
+  display: flex; align-items: center; gap: .85rem; padding: .9rem 1.1rem;
+  background: #fff; border: 1px solid var(--border-blue); border-left: 3px solid var(--green);
+  border-radius: var(--radius-sm); color: var(--text-1); font-family: 'Montserrat', sans-serif; font-size: .95rem; font-weight: 700;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.overview-focus li span { color: var(--green-dark); font-size: .78rem; font-variant-numeric: tabular-nums; }
+@media (hover: hover) { .overview-focus li:hover { transform: translateY(-2px); box-shadow: var(--shadow-card); } }
+@media (max-width: 480px) { .overview-focus { grid-template-columns: 1fr; } }
+
+/* ─── CTA compact ─────────────────────────────────────── */
+.cta-section { padding: 2.5rem 0; }
+.cta-inner h2 { margin-bottom: .6rem; }
+.cta-inner p { margin-bottom: 1.25rem; }
+.cta-actions { margin-bottom: 1.25rem; }
+.contact-strip { padding-top: 1rem; margin-top: 0; }
