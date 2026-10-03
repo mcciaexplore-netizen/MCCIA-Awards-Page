@@ -2572,3 +2572,6 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
 @media (max-width: 768px) {
   .site-header .header-cta { display: none; }
 }
+
+.modal-head .modal-title { margin-bottom: .2rem; }
+.modal-subtitle { margin: 0 0 1rem; color: rgba(255,255,255,.85); font-size: .9rem; }

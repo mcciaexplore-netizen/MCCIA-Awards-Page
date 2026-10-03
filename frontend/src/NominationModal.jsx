@@ -257,6 +257,7 @@ function NominationModal({ initialAward, onClose }) {
     return (
       <div key={field.key} className={`form-group ${field.full ? 'span-2' : ''}`}>
         {field.type === 'radio' ? <span className="radio-label" id={`${id}-label`}>{field.label}{field.required && <span aria-hidden="true"> *</span>}</span> : label}
+        {field.hint && <span className="form-help" id={`${id}-hint`}>{field.hint}</span>}
         {control}
         {errorEl}
       </div>
@@ -296,6 +297,7 @@ function NominationModal({ initialAward, onClose }) {
         <div className="modal-head">
           <p className="modal-eyebrow">MCCIA Awards 2026 · Closes 15 November</p>
           <h2 className="modal-title" id="nomination-title">{award ? award.title : 'Nominate your business'}</h2>
+          {schema?.subtitle && <p className="modal-subtitle">{schema.subtitle}</p>}
           <div className="form-progress" role="progressbar" aria-valuemin={1} aria-valuemax={3} aria-valuenow={step} aria-label={`Step ${step} of 3: ${STEP_LABELS[step - 1]}`}>
             <div className="form-progress-bar" style={{ width: `${(step / 3) * 100}%` }} />
           </div>
