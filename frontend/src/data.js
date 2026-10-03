@@ -1,6 +1,8 @@
 export const awardsData = [
   {
     id: 'gs-parkhe',
+    officialPage: 'https://www.mcciapune.com/awards/gs-parkhe-award/',
+    formUrl: 'https://www.mcciapune.com/awards/gs-parkhe-award-form/',
     title: 'G. S. Parkhe Award',
     tag: 'Innovation & Entrepreneurship',
     tagColor: '#0c7b72',
@@ -25,6 +27,8 @@ export const awardsData = [
   },
   {
     id: 'ramabai-joshi',
+    officialPage: 'https://www.mcciapune.com/awards/ramabai-joshi-award/',
+    formUrl: 'https://www.mcciapune.com/awards/ramabai-joshi-award-form/',
     title: 'Late Ramabai Joshi Award',
     tag: 'Women Entrepreneurs',
     tagColor: '#ad8c46',
@@ -49,6 +53,8 @@ export const awardsData = [
   },
   {
     id: 'rj-rathi',
+    officialPage: 'https://www.mcciapune.com/awards/dr-rj-rathi-award/',
+    formUrl: 'https://www.mcciapune.com/awards/dr-rj-rathi-award-form/',
     title: 'Dr. R. J. Rathi Award',
     tag: 'Sustainability',
     tagColor: '#5d8068',
@@ -73,6 +79,7 @@ export const awardsData = [
   },
   {
     id: 'bg-deshmukh',
+    officialPage: 'https://www.mcciapune.com/awards/bg_deshmukh_award/',
     title: 'B. G. Deshmukh IAS Award',
     tag: 'Social Responsibility',
     tagColor: '#b68f46',
@@ -96,6 +103,8 @@ export const awardsData = [
   },
   {
     id: 'kiran-natu',
+    officialPage: 'https://www.mcciapune.com/awards/late-kiran-natu-udyojakta-puraskar-award/',
+    formUrl: 'https://www.mcciapune.com/awards/late-kiran-natu-udyojakta-puraskar-award-form/',
     title: 'Late Kiran Natu Udyojakta Puraskar',
     tag: 'First-Generation Entrepreneurs',
     tagColor: '#a96f49',
@@ -120,6 +129,8 @@ export const awardsData = [
   },
   {
     id: 'ghorpade',
+    officialPage: 'https://www.mcciapune.com/awards/brig-sb-gorpade-award/',
+    formUrl: 'https://www.mcciapune.com/awards/brig-sb-gorpade-award-form/',
     title: 'Brig. S. B. Ghorpade Award',
     tag: 'MSME Defence Production',
     tagColor: '#42646a',
@@ -143,6 +154,8 @@ export const awardsData = [
   },
   {
     id: 'bg-chitale',
+    officialPage: 'https://www.mcciapune.com/awards/late-shree-bg-chitale-award/',
+    formUrl: 'https://www.mcciapune.com/awards/late-shree-bg-chitale-award-form/',
     title: 'Late Shri B. G. Chitale Award',
     tag: 'Agriculture, Dairy & Food',
     tagColor: '#70865a',
@@ -167,10 +180,12 @@ export const awardsData = [
   },
   {
     id: 'kirloskar-export',
+    officialPage: 'https://www.mcciapune.com/awards/s_l_KirloskarExportExcellenceAward/',
+    formUrl: 'https://www.mcciapune.com/awards/s_l_KirloskarExportExcellenceAwardsform/',
     title: 'S. L. Kirloskar Export Excellence Award',
     tag: 'Exports & Trade',
     tagColor: '#3d7777',
-    since: 'MCCIA Members',
+    since: 'Since 2023',
     icon: 'globe',
     image: '/assets/img/awards/kirloskar-export.jpg',
     imageAlt: 'Portrait of S. L. Kirloskar',
@@ -191,6 +206,8 @@ export const awardsData = [
   },
   {
     id: 'sustainability-mccia',
+    officialPage: 'https://www.mcciapune.com/awards/SustainabilityInstituted_KPIT_TechnologiesLtdAward/',
+    formUrl: 'https://www.mcciapune.com/awards/SustainabilityInstituted_KPIT_TechnologiesLtdAwardsform/',
     title: 'MCCIA Award for Sustainability',
     tag: 'Employee Sustainability',
     tagColor: '#4c806e',
@@ -283,3 +300,16 @@ export const faqs = [
     a: 'Write to the MCCIA awards desk at sudhanwak@mcciapune.com, or call +91 20 2570 9000.',
   },
 ];
+
+export const awardsContact = {
+  name: 'Mr. Sudhanwa Kopardekar',
+  role: 'Director, MCCIA',
+  email: 'sudhanwak@mcciapune.com',
+  phone: '+91 20 2570 9211',
+  phoneHref: 'tel:+912025709211',
+  mobile: '+91 99608 22251',
+  mobileHref: 'tel:+919960822251',
+  general: 'info@mcciapune.com',
+  generalPhone: '+91 20 2570 9000',
+  address: 'MCCIA Trade Tower, 403-A, Senapati Bapat Road, Pune 411016',
+};
