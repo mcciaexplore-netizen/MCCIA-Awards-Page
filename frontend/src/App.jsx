@@ -362,23 +362,23 @@ function AwardsPreview() {
           <p className="prose-text">Explore the award categories and open one to review its criteria.</p>
         </Reveal>
 
-        <ol className="award-timeline">
+        <div className="home-category-grid">
           {[...awardsData]
             .sort((x, y) => yearOf(x) - yearOf(y))
             .map((award, index) => (
-              <li key={award.id} className={index % 2 ? 'tl-right' : 'tl-left'} style={{ '--tag-color': award.tagColor }}>
-                <Reveal delay={index * 40}>
-                  <span className="timeline-year">{yearOf(award)}</span>
-                  <Link to={`/awards/${award.id}`} className="timeline-card">
+              <Reveal key={award.id} delay={index * 40}>
+                <Link to={`/awards/${award.id}`} className="home-category-link" style={{ '--tag-color': award.tagColor }}>
+                  <span className="home-category-copy">
+                    <span className="home-category-tag">{award.since}</span>
                     <strong>{award.tag}</strong>
-                    <span className="timeline-title">{award.title}</span>
-                    <span className="timeline-desc">{award.eligibilitySummary}</span>
-                    <span className="timeline-more">View criteria <span aria-hidden="true">→</span></span>
-                  </Link>
-                </Reveal>
-              </li>
+                    <span className="home-category-desc">{award.eligibilitySummary}</span>
+                    <span className="home-category-award">{award.title}</span>
+                  </span>
+                  <span className="home-category-arrow" aria-hidden="true">→</span>
+                </Link>
+              </Reveal>
             ))}
-        </ol>
+        </div>
       </div>
     </section>
   );
@@ -493,6 +493,10 @@ function Process() {
             <Reveal key={i} delay={i * 80}>
               <li className="process-item">
                 <div className="process-body">
+                  <div className="process-head">
+                    <span className="process-num" aria-hidden="true">{i + 1}</span>
+                    <span className="process-phase">{['Apply', 'Review', 'Review', 'Evaluate', 'Evaluate', 'Evaluate'][i]}</span>
+                  </div>
                   <h3>{s.title}</h3>
                   <p>{s.desc}</p>
                 </div>

@@ -835,40 +835,21 @@ ul, ol { list-style: none; }
 .process-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.1rem;
+  gap: 1.25rem;
   margin-bottom: 2rem;
+  counter-reset: none;
 }
-.process-list > .reveal {
-  position: relative;
-  min-width: 0;
-}
-.process-list > .reveal::after {
-  position: absolute;
-  display: grid;
-  width: 1.8rem;
-  height: 1.8rem;
-  place-items: center;
-  border: 1px solid var(--border-gold);
-  border-radius: 50%;
-  color: var(--blue-dark);
-  background: var(--bg-0);
-  font-family: 'Montserrat', sans-serif;
-  font-size: .95rem;
-  font-weight: 700;
-  line-height: 1;
-  pointer-events: none;
-}
+.process-list > .reveal { min-width: 0; display: flex; }
+.process-list > .reveal > li { flex: 1; display: flex; }
 .process-item {
-  min-height: 150px;
-  padding: 1.35rem 1.4rem;
-  border: 1px solid color-mix(in srgb, var(--process-accent, var(--blue)) 22%, transparent);
-  border-inline-start: 4px solid var(--process-accent, var(--blue));
-  border-radius: 10px;
-  background: var(--process-surface, #fff);
+  flex: 1;
+  padding: 1.4rem 1.5rem 1.6rem;
+  border: 1px solid color-mix(in srgb, var(--process-accent) 25%, transparent);
+  border-top: 4px solid var(--process-accent);
+  border-radius: 12px;
+  background: var(--process-surface);
   color: var(--text-1);
-  transition: transform var(--transition), box-shadow var(--transition), background-color var(--transition);
-}
-.process-list > .reveal:nth-child(-n+3) .process-item {
+  transition: transform var(--transition), box-shadow var(--transition);
   --process-accent: #0c7b72;
   --process-surface: #e8f1ef;
 }
@@ -881,80 +862,51 @@ ul, ol { list-style: none; }
   --process-accent: #b68f46;
   --process-surface: #f4eedf;
 }
+.process-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.process-num {
+  display: grid;
+  width: 2.4rem;
+  height: 2.4rem;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--process-accent);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.process-list > .reveal:first-child .process-num { color: #0c655e; }
+.process-phase {
+  padding: .2rem .7rem;
+  border: 1px solid color-mix(in srgb, var(--process-accent) 45%, transparent);
+  border-radius: 999px;
+  color: var(--process-accent);
+  font-family: 'Montserrat', sans-serif;
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.process-list > .reveal:nth-child(n+4) .process-phase { color: #8f6f33; }
 .process-body h3 {
   margin-bottom: .45rem;
   color: var(--blue-dark);
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   line-height: 1.35;
 }
 .process-list > .reveal:first-child .process-body h3 { color: #fff; }
-.process-body p { color: var(--text-2); font-size: .88rem; line-height: 1.6; }
+.process-body p { color: var(--text-2); font-size: .9rem; line-height: 1.6; }
 .process-list > .reveal:first-child .process-body p { color: rgba(255, 255, 255, .84); }
-@media (min-width: 1101px) {
-  .process-list > .reveal:nth-child(4) { grid-column: 3; grid-row: 2; }
-  .process-list > .reveal:nth-child(5) { grid-column: 2; grid-row: 2; }
-  .process-list > .reveal:nth-child(6) { grid-column: 1; grid-row: 2; }
-  .process-list > .reveal:nth-child(1)::after,
-  .process-list > .reveal:nth-child(2)::after {
-    content: '→';
-    top: 50%;
-    right: -.55rem;
-    z-index: 2;
-    transform: translate(50%, -50%);
-  }
-  .process-list > .reveal:nth-child(3)::after {
-    content: '↓';
-    top: 100%;
-    right: 50%;
-    bottom: -.95rem;
-    transform: translate(50%, -50%);
-  }
-  .process-list > .reveal:nth-child(4)::after,
-  .process-list > .reveal:nth-child(5)::after {
-    content: '←';
-    top: 50%;
-    left: -.55rem;
-    z-index: 2;
-    transform: translate(-50%, -50%);
-  }
-}
-@media (min-width: 769px) and (max-width: 1100px) {
-  .process-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .process-list > .reveal:nth-child(1)::after,
-  .process-list > .reveal:nth-child(3)::after,
-  .process-list > .reveal:nth-child(5)::after {
-    content: '→';
-    top: 50%;
-    right: -.55rem;
-    z-index: 2;
-    transform: translate(50%, -50%);
-  }
-  .process-list > .reveal:nth-child(2)::after,
-  .process-list > .reveal:nth-child(4)::after {
-    content: '↙';
-    top: 100%;
-    left: .7rem;
-    bottom: -.95rem;
-    z-index: 2;
-    transform: translateY(-50%);
-  }
-}
-@media (max-width: 768px) {
-  .process-list { grid-template-columns: 1fr; }
-  .process-list > .reveal:not(:last-child)::after {
-    content: '↓';
-    bottom: -.9rem;
-    left: 50%;
-    z-index: 2;
-    transform: translateX(-50%);
-  }
-}
+@media (max-width: 900px) { .process-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .process-list { grid-template-columns: 1fr; } }
 @media (hover: hover) and (pointer: fine) {
-  .process-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 24px rgba(12, 91, 85, .1);
-  }
+  .process-item:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(12, 91, 85, .1); }
 }
 .process-close {
   text-align: center; color: var(--blue-dark);
@@ -1982,6 +1934,8 @@ button:active, .btn-gold:active, .btn-ghost:active { transform: translateY(1px) 
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: .8rem;
 }
+@media (max-width: 1000px) { .home-category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .home-category-grid { grid-template-columns: minmax(0, 1fr); } }
 .home-category-link {
   position: relative;
   display: grid;
@@ -2575,3 +2529,59 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
 
 .modal-head .modal-title { margin-bottom: .2rem; }
 .modal-subtitle { margin: 0 0 1rem; color: rgba(255,255,255,.85); font-size: .9rem; }
+
+/* Category cards: trophy tile, since label, tag title, eligibility summary */
+.home-category-grid { gap: 1.4rem; }
+.home-category-link {
+  min-height: 0;
+  grid-template-columns: 70px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 1.1rem;
+  padding: 1.5rem 1.5rem 1.4rem;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(12, 91, 85, .05);
+}
+.home-category-image {
+  width: 70px; height: 70px; border-radius: 12px;
+  background: color-mix(in srgb, var(--tag-color) 12%, #fff);
+  border: 1px solid color-mix(in srgb, var(--tag-color) 22%, transparent);
+}
+.home-category-image .home-category-trophy { width: 46px; height: 46px; }
+.home-category-copy { gap: .3rem; }
+.home-category-tag { font-size: .7rem; letter-spacing: .08em; }
+.home-category-copy strong { font-size: 1.15rem; line-height: 1.25; -webkit-line-clamp: 3; }
+.home-category-desc { color: var(--text-2); font-size: .92rem; line-height: 1.55; }
+.home-category-arrow {
+  display: grid; width: 2.4rem; height: 2.4rem; place-items: center;
+  color: var(--tag-color); border: 1px solid var(--tag-color); border-radius: 50%;
+}
+@media (max-width: 480px) {
+  .home-category-link { grid-template-columns: 56px minmax(0, 1fr) auto; padding: 1.1rem; }
+  .home-category-image { width: 56px; height: 56px; }
+}
+.home-category-image .home-category-trophy { width: 100%; height: 100%; padding: 12px; background: none; border: 0; border-radius: 0; }
+.home-category-image { overflow: visible; }
+
+/* Category cards v3: distinct coloured icons, equal heights, award name footer */
+.home-category-grid > .reveal { display: flex; }
+.home-category-grid > .reveal > .home-category-link { flex: 1; }
+.home-category-image {
+  color: #fff;
+  background: var(--tag-color);
+  border: 0;
+  box-shadow: 0 4px 10px color-mix(in srgb, var(--tag-color) 30%, transparent);
+}
+.home-category-image svg { width: 34px; height: 34px; }
+.home-category-award {
+  margin-top: .6rem;
+  padding-top: .6rem;
+  border-top: 1px dashed color-mix(in srgb, var(--tag-color) 35%, transparent);
+  color: var(--text-2);
+  font-family: 'Montserrat', sans-serif;
+  font-size: .74rem;
+  font-weight: 600;
+}
+
+/* Category cards v4: no icon tile */
+.home-category-link { grid-template-columns: minmax(0, 1fr) auto; }
+@media (max-width: 480px) { .home-category-link { grid-template-columns: minmax(0, 1fr) auto; } }
