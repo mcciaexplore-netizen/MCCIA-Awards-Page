@@ -340,6 +340,8 @@ function TrophyIcon() {
 }
 
 function AwardsPreview() {
+  const [view, setView] = useState('grid');
+  const yearOf = award => Number((award.since.match(/\d{4}/) || [])[0]) || 0;
   return (
     <section className="section home-awards" id="awards" aria-labelledby="home-awards-heading">
       <div className="wrap">
@@ -350,19 +352,55 @@ function AwardsPreview() {
           <p className="prose-text">Explore the award categories and open one to review its criteria.</p>
         </Reveal>
 
-        <div className="home-category-grid">
-          {awardsData.map(award => (
-            <Link key={award.id} to={`/awards/${award.id}`} className="home-category-link" style={{ '--tag-color': award.tagColor }}>
-              <TrophyIcon />
-              <span className="home-category-copy">
-                <span className="home-category-tag">{award.since}</span>
-                <strong>{award.tag}</strong>
-                <span className="home-category-desc">{award.eligibilitySummary}</span>
-              </span>
-              <span className="home-category-arrow" aria-hidden="true">→</span>
-            </Link>
-          ))}
+        <div className="view-toggle" role="group" aria-label="Choose how to view the categories">
+          <button type="button" className={view === 'grid' ? 'active' : ''} aria-pressed={view === 'grid'} onClick={() => setView('grid')}>Grid</button>
+          <button type="button" className={view === 'timeline' ? 'active' : ''} aria-pressed={view === 'timeline'} onClick={() => setView('timeline')}>Timeline</button>
+          <button type="button" className={view === 'list' ? 'active' : ''} aria-pressed={view === 'list'} onClick={() => setView('list')}>List</button>
         </div>
+
+        {view === 'grid' ? (
+          <div className="home-category-grid">
+            {awardsData.map(award => (
+              <Link key={award.id} to={`/awards/${award.id}`} className="home-category-link" style={{ '--tag-color': award.tagColor }}>
+                <TrophyIcon />
+                <span className="home-category-copy">
+                  <span className="home-category-tag">{award.since}</span>
+                  <strong>{award.tag}</strong>
+                  <span className="home-category-desc">{award.eligibilitySummary}</span>
+                </span>
+                <span className="home-category-arrow" aria-hidden="true">→</span>
+              </Link>
+            ))}
+          </div>
+        ) : view === 'list' ? (
+          <ul className="award-list">
+            {awardsData.map(award => (
+              <li key={award.id} style={{ '--tag-color': award.tagColor }}>
+                <Link to={`/awards/${award.id}`}>
+                  <span className="list-year">{yearOf(award) || '—'}</span>
+                  <strong className="list-tag">{award.tag}</strong>
+                  <span className="list-title">{award.title}</span>
+                  <span className="list-arrow" aria-hidden="true">→</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <ol className="award-timeline">
+            {[...awardsData]
+              .sort((x, y) => (yearOf(x) || 9999) - (yearOf(y) || 9999))
+              .map(award => (
+                <li key={award.id} style={{ '--tag-color': award.tagColor }}>
+                  <span className="timeline-year">{yearOf(award) || 'Ongoing'}</span>
+                  <Link to={`/awards/${award.id}`} className="timeline-card">
+                    <strong>{award.tag}</strong>
+                    <span className="timeline-title">{award.title}</span>
+                    <span className="timeline-desc">{award.eligibilitySummary}</span>
+                  </Link>
+                </li>
+              ))}
+          </ol>
+        )}
       </div>
     </section>
   );
