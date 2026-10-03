@@ -2413,3 +2413,12 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
 .cta-inner p { margin-bottom: 1.25rem; }
 .cta-actions { margin-bottom: 1.25rem; }
 .contact-strip { padding-top: 1rem; margin-top: 0; }
+
+/* ─── Overview focus: compact pills ───────────────────── */
+.overview-focus { display: flex; flex-wrap: wrap; gap: .5rem .6rem; margin-top: 1.25rem; }
+.overview-focus li {
+  gap: .5rem; padding: .5rem 1rem; border: 1px solid var(--border-blue); border-left-width: 1px;
+  border-radius: 999px; background: #fff; font-size: .88rem;
+}
+.overview-focus li span { width: 6px; height: 6px; overflow: hidden; border-radius: 50%; background: var(--green); font-size: 0; }
+@media (max-width: 480px) { .overview-focus { grid-template-columns: none; } }
