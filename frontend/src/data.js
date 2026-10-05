@@ -214,8 +214,7 @@ export const awardsData = [
     since: 'Since 2023',
     icon: 'recycle',
     image: '/assets/img/awards/sustainability-kpit.jpg',
-    imageAlt: 'KPIT Technologies logo',
-    imageType: 'logo',
+    imageAlt: 'Portrait for the MCCIA Award for Sustainability, instituted by KPIT Technologies Ltd.',
     description:
       'This award recognises companies that drive meaningful sustainability initiatives through active employee engagement. It highlights efforts ranging from waste elimination and sustainable products to workplace practices that reduce environmental impact.',
     highlights: [

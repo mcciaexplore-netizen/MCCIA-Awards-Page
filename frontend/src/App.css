@@ -2786,3 +2786,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
 .process-list > .reveal .process-body p {
   color: var(--text-2) !important;
 }
+
+/* Category cards v5: pin award-name footer to the bottom so dividers align across a row */
+.home-category-copy { height: 100%; grid-template-rows: auto auto 1fr auto; }
+.home-category-award { min-height: calc(2 * 1.45em + .6rem); line-height: 1.45; align-self: end; }
