@@ -267,36 +267,44 @@ export const processSteps = [
 
 export const faqs = [
   {
-    q: 'Which award should I apply for?',
-    a: "Read each award's eligibility criteria carefully. You can apply to every category your organisation genuinely qualifies for. Use the filter on the awards section to find the right category.",
+    q: 'What are the MCCIA Annual Awards?',
+    a: '<p>The MCCIA Annual Awards recognise businesses and entrepreneurs for significant contributions in innovation, entrepreneurship, sustainability, exports, CSR, defence production, women entrepreneurship, and agri, dairy, and food processing.</p><p>The Awards bring together nine categories that reflect different areas of achievement across industry and enterprise.</p>',
   },
   {
-    q: 'Who is eligible to apply?',
-    a: 'Eligibility varies by award. The Dr. R. J. Rathi Award is open to all small, medium and large-scale manufacturing and service units. The S. L. Kirloskar Export Excellence Award is open to MCCIA members only. Check each award for its exact eligibility.',
+    q: 'Why should I apply for an MCCIA Award?',
+    a: '<p>An MCCIA Award is an opportunity to place your organisation, innovation or entrepreneurial journey on a recognised industry platform.</p><p>It is also an opportunity to acknowledge the work of your team and be recognised alongside organisations contributing to the growth of industry and enterprise.</p>',
   },
   {
-    q: 'What does an awardee receive?',
-    a: 'A trophy and a certificate. The Late Kiran Natu Udyojakta Puraskar additionally carries a medal and a cash prize of ₹1 lakh.',
+    q: 'Who can apply?',
+    a: '<p>Eligibility depends on the category.</p><p>Different Awards have different criteria. For example, the S. L. Kirloskar Export Excellence Award is open to MCCIA member manufacturer exporters. At the same time, the Dr. R. J. Rathi Award is open to small, medium and large manufacturing and service units. The Late Kiran Natu Udyojakta Puraskar is specifically for first-generation successful entrepreneurs.</p><p>Please review the eligibility criteria for your chosen Award before applying.</p>',
   },
   {
-    q: 'What is the last date for submission?',
-    a: '15 November 2026, for all nine award categories.',
+    q: 'What are the nine MCCIA Award categories?',
+    a: '<p>The MCCIA Annual Awards feature nine categories:</p><ul><li><strong>Innovation in Entrepreneurship</strong><br />Late G. S. Parkhe Award</li><li><strong>Women Entrepreneurs</strong><br />Late Ramabai Joshi Award</li><li><strong>Green Initiative in Maharashtra</strong><br />Dr. R. J. Rathi Award</li><li><strong>Corporate Social Responsibility</strong><br />B. G. Deshmukh IAS Award</li><li><strong>First Generation Successful Entrepreneur</strong><br />Late Kiran Natu Udyojakta Puraskar</li><li><strong>MSME Defence Production</strong><br />Brig S B Ghorpade Award</li><li><strong>Agri based / Dairy / Food Processing Business Unit</strong><br />Late Shri B. G. Chitale Award</li><li><strong>Outstanding Export Performance</strong><br />S. L. Kirloskar Export Excellence Award</li><li><strong>Employee Engagement in Sustainability</strong><br />MCCIA Award for Sustainability, instituted by KPIT Technologies Ltd. ()</li></ul>',
   },
   {
-    q: 'How is my entry evaluated?',
-    a: "Submissions are reviewed by MCCIA's expert jury. Shortlisted applicants are asked for further documentation, then invited to present to the Selection Committee. The committee may also conduct a factory visit.",
+    q: 'How do I know which Award is right for me?',
+    a: '<p>Start with what your organisation has achieved, rather than trying to fit your business into a category.</p><p>Review the nine Awards and choose the one that most closely reflects your area of contribution. Each Award page provides its specific focus and eligibility criteria.</p><p>If your organisation works across multiple areas, review the relevant categories before deciding where your nomination fits best.</p>',
   },
   {
-    q: 'Can I nominate another organisation?',
-    a: 'For the B. G. Deshmukh IAS Award, industries can also nominate units where CSR is in practice. For all other awards, the applicant is normally the organisation or entrepreneur claiming the award.',
+    q: 'How do I apply?',
+    a: '<p>Visit the <a href="https://www.mcciapune.com/awards/">MCCIA Awards</a> page and select the Award you wish to apply for.</p><p>Review the eligibility criteria and application requirements, complete the nomination form and submit the required information and supporting material.</p><p>The last date for submission is 15 November 2026.</p>',
   },
   {
-    q: 'What should I send with my application?',
-    a: 'The completed form along with product catalogues and photographs. If shortlisted, you will be asked for additional documentation including sales literature and bio-data.',
+    q: 'What happens after I submit my nomination?',
+    a: '<p>The selection process involves multiple stages.</p><p>Applications are reviewed and shortlisted candidates may be asked to provide additional information and documents. Shortlisted candidates may then be invited for an interview and presentation.</p><p>The Selection Committee may also seek further information or discussions and, where necessary, conduct an on site visit before the final selection.</p>',
   },
   {
-    q: 'Whom do I contact for clarifications?',
-    a: 'Write to the MCCIA awards desk at satishj@mcciapune.com or mandarm@mcciapune.com, or call 020- 25709162 / 25709167.',
+    q: 'What information or documents do I need to submit?',
+    a: '<p>The requirements vary by Award.</p><p>Depending on the category, the initial application may require information about your organisation, product, process, business performance or initiative, along with relevant catalogues and photographs.</p><p>Shortlisted applicants may subsequently be asked for additional documentation, sales literature, profiles, photographs or other information relevant to their nomination.</p><p>Please refer to the individual Award page for the specific requirements.</p>',
+  },
+  {
+    q: 'What is the deadline for nominations?',
+    a: '<p>The last date for submitting nominations for the MCCIA Annual Awards 2027 is 15 November 2026.</p><p>Applicants are encouraged to complete their submissions before the deadline.</p>',
+  },
+  {
+    q: 'Who can I contact if I have questions?',
+    a: '<p>For queries regarding the MCCIA Annual Awards, please contact:</p><p><strong>Mr. Satish Joshi</strong><br />Associate Director, MCCIA<br /><strong>Mr. Mandar Marathe</strong><br />Manager, MCCIA</p><p>Tel: <a href="tel:02025709162">020 25709162</a> / <a href="tel:02025709167">020 25709167</a><br />Mobile: <a href="tel:+919881127658">9881127658</a> / <a href="tel:+919881972139">9881972139</a><br />Email: <a href="mailto:mandarm@mcciapune.com">mandarm@mcciapune.com</a> / <a href="mailto:satishj@mcciapune.com">satishj@mcciapune.com</a></p>',
   },
 ];
 

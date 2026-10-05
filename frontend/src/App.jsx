@@ -525,7 +525,7 @@ function FAQ() {
                   <span>{f.q}</span>
                   <span className="faq-icon">{open === i ? '−' : '+'}</span>
                 </button>
-                <div className="faq-a" id={`faq-answer-${i}`} hidden={open !== i}><p>{f.a}</p></div>
+                <div className="faq-a" id={`faq-answer-${i}`} hidden={open !== i} dangerouslySetInnerHTML={{ __html: f.a }} />
               </div>
             </Reveal>
           ))}
