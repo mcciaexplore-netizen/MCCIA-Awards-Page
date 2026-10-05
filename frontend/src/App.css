@@ -2750,3 +2750,39 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
   content-visibility: auto;
   contain-intrinsic-size: 300px 400px;
 }
+
+/* Unified & Clean Theme for Process Cards */
+.process-list > .reveal .process-item {
+  background: #ffffff !important;
+  color: var(--text-1) !important;
+  border-top: 4px solid var(--gold-primary) !important;
+  border: 1px solid var(--border) !important;
+  border-top-width: 4px !important;
+}
+.process-list > .reveal:nth-child(odd) .process-item {
+  border-top-color: var(--green-primary) !important;
+}
+.process-list > .reveal .process-num {
+  color: #fff !important;
+  background: var(--gold-primary) !important;
+}
+.process-list > .reveal:nth-child(odd) .process-num {
+  background: var(--green-primary) !important;
+}
+.process-list > .reveal .process-phase {
+  color: var(--gold-primary) !important;
+  border-color: var(--gold-primary) !important;
+  background: color-mix(in srgb, var(--gold-primary) 10%, transparent) !important;
+}
+.process-list > .reveal:nth-child(odd) .process-phase {
+  color: var(--green-primary) !important;
+  border-color: var(--green-primary) !important;
+  background: color-mix(in srgb, var(--green-primary) 10%, transparent) !important;
+}
+.process-list > .reveal .process-body h3,
+.process-list > .reveal .process-body p {
+  color: var(--text-1) !important;
+}
+.process-list > .reveal .process-body p {
+  color: var(--text-2) !important;
+}
