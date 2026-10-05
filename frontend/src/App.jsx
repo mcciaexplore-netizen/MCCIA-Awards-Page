@@ -579,8 +579,8 @@ function Footer() {
         <div className="footer-contact">
           <h4>Contact</h4>
           <p>MCCIA Trade Tower, 403-A,<br />Senapati Bapat Road, Pune 411016</p>
-          <a href="tel:+912025709000">+91 20 2570 9000</a>
-          <a href="mailto:sudhanwak@mcciapune.com">sudhanwak@mcciapune.com</a>
+          <a href={awardsContact.phoneHref}>{awardsContact.phone}</a>
+          <a href={`mailto:${awardsContact.email}`}>Email us</a>
         </div>
       </div>
       <div className="footer-bottom">
