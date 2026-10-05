@@ -193,7 +193,7 @@ function Overview() {
             </p>
             <p className="overview-focus-label">Areas we recognise</p>
             <ul className="overview-focus" aria-label="Areas recognised by the awards">
-              {['Industry', 'Entrepreneurship', 'Innovation', 'Exports', 'Sustainability', 'Social responsibility'].map((area, index) => (
+              {['Industry', 'Entrepreneurship', 'Innovation', 'Exports', 'Green Initiatives in Maharashtra', 'Corporate Social Responsibility'].map((area, index) => (
                 <li key={area}><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>{area}</li>
               ))}
             </ul>
@@ -488,7 +488,7 @@ function Process() {
                 <div className="process-body">
                   <div className="process-head">
                     <span className="process-num" aria-hidden="true">{i + 1}</span>
-                    <span className="process-phase">{['Apply', 'Review', 'Review', 'Evaluate', 'Evaluate', 'Evaluate'][i]}</span>
+                    <span className="process-phase">{i + 1}</span>
                   </div>
                   <h3>{s.title}</h3>
                   <p>{s.desc}</p>
@@ -498,7 +498,7 @@ function Process() {
           ))}
         </ol>
         <Reveal>
-          <p className="process-close">After careful evaluation and deliberation, the jury finalises the awardees.</p>
+          <p className="process-close"><strong>After careful evaluation and deliberation, the jury finalises the awardees.</strong></p>
         </Reveal>
       </div>
     </section>
