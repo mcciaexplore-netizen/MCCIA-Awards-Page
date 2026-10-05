@@ -42,7 +42,7 @@ function SkeletonImage({ src, alt, ...rest }) {
   return (
     <>
       {!loaded && <span className="img-skeleton" aria-hidden="true" />}
-      <img ref={ref} src={src} alt={alt} className={loaded ? 'img-loaded' : 'img-loading'} onLoad={() => setLoaded(true)} onError={() => setLoaded(true)} {...rest} />
+      <img ref={ref} src={src} alt={alt} loading="lazy" className={loaded ? 'img-loaded' : 'img-loading'} onLoad={() => setLoaded(true)} onError={() => setLoaded(true)} {...rest} />
     </>
   );
 }
@@ -90,13 +90,6 @@ function Header({ onNominate }) {
   return (
     <>
       <a className="skip-link" href="#main-content">Skip to content</a>
-      <div className="utility-bar">
-        <span className="live-dot" />&nbsp;Nominations open · Closes 15 November 2026
-        <div className="utility-links">
-          <a href="tel:+912025709000">+91 20 2570 9000</a>
-          <a href="mailto:info@mcciapune.com">info@mcciapune.com</a>
-        </div>
-      </div>
       <header className={`site-header ${scrolled ? 'scrolled' : ''}`}>
         <div className="header-inner wrap">
           <Link to="/" className="brand" aria-label="MCCIA Awards home">
@@ -694,6 +687,39 @@ function AwardDetailPage({ onNominate }) {
                 ))}
               </ul>
             </Reveal>
+            <Reveal delay={120}>
+              <h2 className="detail-section-title" style={{ marginTop: '3rem' }}>Award timeline</h2>
+              <div className="timeline-container">
+                <div className="timeline-step">
+                  <div className="timeline-marker active"></div>
+                  <div className="timeline-content">
+                    <h4>Nominations Open</h4>
+                    <p>Current phase</p>
+                  </div>
+                </div>
+                <div className="timeline-step">
+                  <div className="timeline-marker"></div>
+                  <div className="timeline-content">
+                    <h4>Jury Review</h4>
+                    <p>Nov 2026 - Dec 2026</p>
+                  </div>
+                </div>
+                <div className="timeline-step">
+                  <div className="timeline-marker"></div>
+                  <div className="timeline-content">
+                    <h4>Shortlist Announced</h4>
+                    <p>Jan 2027</p>
+                  </div>
+                </div>
+                <div className="timeline-step">
+                  <div className="timeline-marker"></div>
+                  <div className="timeline-content">
+                    <h4>Awards Gala</h4>
+                    <p>Feb 2027</p>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
           </div>
 
           <aside className="detail-sidebar" aria-label={`${award.title} eligibility and prize`}>
@@ -707,16 +733,37 @@ function AwardDetailPage({ onNominate }) {
               <p className="detail-prize">{award.prize}</p>
               {award.prizeSpecial && <span className="prize-badge prize-special">Special cash prize</span>}
             </section>
+            <section className="detail-card share-card">
+              <h3>Share this Award</h3>
+              <div className="share-buttons">
+                <button type="button" aria-label="Share on LinkedIn" className="share-btn linkedin">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </button>
+                <button type="button" aria-label="Share on X" className="share-btn twitter">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </button>
+                <button type="button" aria-label="Share on WhatsApp" className="share-btn whatsapp">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.031 21.493l-3.125-.975-2.951 1.554.565-3.275-2.383-2.323.953-3.131L2.614 10.36l2.355-2.352.924-3.139 3.284.512L12.031 2.507l2.854 2.874 3.284-.512.924 3.139 2.355 2.352-2.476 2.983.953 3.131-2.383 2.323.565 3.275-2.951-1.554-3.125.975z"/></svg>
+                </button>
+                <button type="button" aria-label="Copy Link" className="share-btn copy-link" onClick={() => navigator.clipboard.writeText(window.location.href)}>
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                </button>
+              </div>
+            </section>
             <div>
-              <button className="btn-gold btn-block detail-apply-btn" type="button" onClick={() => onNominate(award.title)}>
-                Nominate for this award
-              </button>
-              <p className="detail-deadline">Submission deadline: <strong>15 November 2026</strong></p>
               <p className="detail-contact">Questions? <strong>{awardsContact.name}</strong><br /><a href={`mailto:${awardsContact.email}`}>{awardsContact.email}</a> · <a href={awardsContact.mobileHref}>{awardsContact.mobile}</a></p>
             </div>
           </aside>
         </div>
       </main>
+
+      <section className="detail-cta-section wrap" style={{ textAlign: 'center', margin: '4rem auto', padding: '3rem', backgroundColor: '#f9f7f1', borderRadius: '12px' }}>
+        <h2 style={{ marginBottom: '1.5rem', fontSize: '2rem', color: '#1d352f' }}>Ready to nominate?</h2>
+        <button className="btn-gold" type="button" onClick={() => onNominate(award.title)} style={{ padding: '1rem 2rem', fontSize: '1.125rem' }}>
+          Nominate for this award
+        </button>
+        <p className="detail-deadline" style={{ marginTop: '1rem', color: '#4a5553' }}>Submission deadline: <strong>15 November 2026</strong></p>
+      </section>
     </div>
   );
 }

@@ -2585,3 +2585,168 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--b
 /* Category cards v4: no icon tile */
 .home-category-link { grid-template-columns: minmax(0, 1fr) auto; }
 @media (max-width: 480px) { .home-category-link { grid-template-columns: minmax(0, 1fr) auto; } }
+/* UX Improvements */
+.detail-highlights li {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.detail-highlights li:hover {
+  transform: translateX(5px);
+  color: var(--text-1);
+}
+.detail-highlights li:hover .detail-check {
+  transform: scale(1.2);
+  transition: transform 0.3s ease;
+}
+
+@media (min-width: 900px) {
+  .detail-sidebar {
+    position: sticky;
+    top: 100px;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: var(--radius-md);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+    padding: 1rem;
+    z-index: 10;
+  }
+}
+
+.share-card h3 {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+.share-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+.share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.share-btn:hover {
+  background: var(--gold-primary);
+  color: white;
+  border-color: var(--gold-primary);
+  transform: translateY(-2px);
+}
+
+.timeline-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  position: relative;
+}
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: var(--border);
+}
+.timeline-step {
+  display: flex;
+  gap: 1.5rem;
+  position: relative;
+}
+.timeline-marker {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid var(--border);
+  position: relative;
+  z-index: 2;
+  margin-top: 3px;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+.timeline-marker.active {
+  border-color: var(--gold-primary);
+  background: var(--gold-primary);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
+}
+.timeline-content h4 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.1rem;
+  color: var(--text-1);
+}
+.timeline-content p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-2);
+}
+/* Form Animations */
+.form-step {
+  animation: slideFadeIn 0.4s ease forwards;
+}
+
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  transition: all 0.3s ease;
+  border: 1px solid var(--border);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+  border-color: var(--gold-primary);
+}
+
+.step-indicator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.step-dot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--text-2);
+  transition: all 0.3s ease;
+}
+
+.step-dot.active {
+  color: var(--gold-primary);
+  transform: scale(1.05);
+}
+
+.step-dot.done {
+  color: var(--gold-primary);
+}
+
+/* Performance Polish */
+.award-card {
+  content-visibility: auto;
+  contain-intrinsic-size: 300px 400px;
+}
