@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Routes, Route, Link, useLocation, useParams } from 'react-router-dom';
+import { Routes, Route, Link, useLocation, useParams, useNavigate } from 'react-router-dom';
 import { awardsData, processSteps, faqs, awardsContact } from './data';
-import NominationModal from './NominationModal';
+import NominatePage from './NominatePage';
 import './App.css';
 
 /* ─── Intersection Observer (reveal on scroll) ───────── */
@@ -294,9 +294,10 @@ const AWARD_ICONS = {
 
 /* ─── Awards Explorer ─────────────────────────────────── */
 function AwardCard({ award, delay }) {
+  const navigate = useNavigate();
   return (
     <Reveal delay={delay} className="award-card-wrap">
-      <article className="award-card" id={`award-${award.id}`} style={{ '--tag-color': award.tagColor }}>
+      <article className="award-card" id={`award-${award.id}`} style={{ '--tag-color': award.tagColor, cursor: 'pointer' }} onClick={() => navigate(`/awards/${award.id}`)}>
         <div className="award-card-accent" style={{ background: award.tagColor }} />
         <div className="award-card-content">
           <div className="award-card-top">
@@ -770,18 +771,16 @@ function AwardDetailPage({ onNominate }) {
 
 /* ─── App ─────────────────────────────────────────────── */
 export default function App() {
-  const [selectedAward, setSelectedAward] = useState(null);
   const location = useLocation();
-  const showModal = selectedAward !== null;
+  const navigate = useNavigate();
 
-  const openNomination = (awardTitle = '') => setSelectedAward(awardTitle || '');
-  const closeNomination = () => setSelectedAward(null);
-
-  useEffect(() => {
-    if (showModal) document.body.style.overflow = 'hidden';
-    else document.body.style.overflow = '';
-    return () => { document.body.style.overflow = ''; };
-  }, [showModal]);
+  const openNomination = (awardTitle = '') => {
+    if (awardTitle) {
+      navigate(`/nominate?award=${encodeURIComponent(awardTitle)}`);
+    } else {
+      navigate('/nominate');
+    }
+  };
 
   useEffect(() => {
     if (location.hash) {
@@ -807,12 +806,12 @@ export default function App() {
           <Route path="/" element={<HomePage onNominate={openNomination} />} />
           <Route path="/awards" element={<AwardsPage />} />
           <Route path="/awards/:id" element={<AwardDetailPage onNominate={openNomination} />} />
+          <Route path="/nominate" element={<NominatePage />} />
           <Route path="*" element={<div className="not-found wrap"><h1>Page not found</h1><p>This page may have moved. Browse the awards to continue.</p><Link className="btn-gold" to="/awards">Browse awards</Link></div>} />
         </Routes>
       </main>
       <Footer />
       <MobileCTA onNominate={() => openNomination()} />
-      {showModal && <NominationModal initialAward={selectedAward} onClose={closeNomination} />}
     </>
   );
 }
